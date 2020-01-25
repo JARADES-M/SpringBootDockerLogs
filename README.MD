@@ -23,6 +23,12 @@ $ docker build -t exampleimage .
 $ docker run -p 8080:8080 -t exampleimage
 ```
 
+> You can use Ctrl+C to exit the container console. 
+> Then you can check the logs using the following command.
+ ```sh 
+$ docker exec -t <container name> cat tmp/myapplogs/application_logs.log
+```
+
 > Access the app
  [http://localhost:8080](http://localhost:8080)
 
