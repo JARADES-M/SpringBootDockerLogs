@@ -2,14 +2,14 @@
 
 > Based on [spring.io - Spring Boot with Docker](https://spring.io/guides/gs/spring-boot-docker/#initial) example.
 
-### Run The Project
+### Run The Project (maven)
 
 > Clean And Build The Project
 ```sh 
 $ mvn clean package
 ```
 
-> A faster way to launch the app (maven)
+> A faster way to launch the app
 
 ```sh 
 $ mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
