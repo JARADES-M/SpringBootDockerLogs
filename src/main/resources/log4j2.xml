@@ -2,31 +2,28 @@
 <Configuration status="WARN" monitorInterval="30">
     <Properties>
         <Property name="LOG_PATTERN">%style{%d{ISO8601}}{black} %highlight{%-5level }[%style{%t}{bright,blue}] %style{%C{1.}}{bright,yellow}: %msg%n%throwable</Property>
-        <!-- no file logs inside the container -->
-        <!-- Property name="APP_LOG_ROOT">./.log/</Property -->
+        <Property name="APP_LOG_ROOT">/tmp</Property>
     </Properties>
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
             <PatternLayout pattern="${LOG_PATTERN}" />
         </Console>
   
-        <!-- no file logs inside the container -->
-        <!-- RollingFile name="file"
-            fileName="${APP_LOG_ROOT}/application_logs.log"
+        <RollingFile name="file"
+            fileName="${APP_LOG_ROOT}/myapplogs/application_logs.log"
             filePattern="${APP_LOG_ROOT}/SpringBoot2App/application-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout pattern="${LOG_PATTERN}" />
             <Policies>
                 <SizeBasedTriggeringPolicy size="19500KB" />
             </Policies>
             <DefaultRolloverStrategy max="1" />
-        </RollingFile -->
+        </RollingFile>
   
     </Appenders>
     <Loggers>
         <Root level="info">
             <AppenderRef ref="console" />
-            <!-- no file logs inside the container -->
-            <!-- AppenderRef ref="file" /-->
+            <AppenderRef ref="file" />
         </Root>
     </Loggers>
 </Configuration>
