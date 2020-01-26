@@ -1,8 +1,16 @@
-FROM openjdk:8-jdk-alpine
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
-ARG DEPENDENCY=target/dependency
-COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY ${DEPENDENCY}/META-INF/ /app/META-INF
-COPY ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT [ "java", "-cp", "app:app/lib/*", "hello.Application" ]
+FROM maven:3.5-jdk-8-alpine as builder
+
+# Copy local code to the container image.
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+
+# Build a release artifact.
+RUN mvn package -DskipTests
+FROM adoptopenjdk/openjdk8:jdk8u202-b08-alpine-slim
+
+# Copy the jar to the production image from the builder stage.
+COPY --from=builder /app/target/gs-spring-boot-docker-*.jar /hellojarades.jar
+
+# Run the web service on container startup.
+CMD ["java","-Djava.security.egd=file:/dev/./urandom","-Dserver.port=${PORT}","-jar","/hellojarades.jar"]
