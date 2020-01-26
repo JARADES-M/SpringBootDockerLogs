@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
     private static final Logger LOGGER = LoggerFactory.getLogger(HelloController.class);
 
-    @Value("${TARGET:From Jarades}")
+    @Value("${TARGET:From GPC}")
     String target;
 
     @GetMapping("/")
